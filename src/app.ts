@@ -3,11 +3,11 @@ import cors from "cors";
 import dotenv from "dotenv";
 import "reflect-metadata";
 
-import authRoutes from "./routes/auth.routes";
-import userRoutes from "./routes/user.routes";
-import membershipRoutes from "./routes/membership.routes";
-import projectRoutes from "./routes/project.routes";
-import taskRoutes from "./routes/task.routes";
+import authRoutes from "./routes/authRoutes";
+import userRoutes from "./routes/userRoutes";
+import membershipRoutes from "./routes/memberRoutes";
+import projectRoutes from "./routes/projectRoutes";
+import taskRoutes from "./routes/taskRoutes";
 
 dotenv.config();
 
@@ -19,7 +19,7 @@ app.use(express.json());
 // Rotas
 app.use("/auth", authRoutes);
 app.use("/users", userRoutes);
-app.use("/memberships", membershipRoutes);
+app.use("/member", membershipRoutes);
 app.use("/projects", projectRoutes);
 app.use("/tasks", taskRoutes);
 
