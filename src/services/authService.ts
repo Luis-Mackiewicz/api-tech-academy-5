@@ -46,7 +46,6 @@ export class AuthService {
       throw new Error("Usuário ou senha inválidos.");
     }
 
-    // Gera o token JWT
     const token = jwt.sign({ id: user.id }, JWT_SECRET, { expiresIn: "8h" });
 
     return {
