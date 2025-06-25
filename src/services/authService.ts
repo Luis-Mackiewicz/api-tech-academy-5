@@ -28,7 +28,17 @@ export class AuthService {
     });
     await this.userRepo.save(user);
 
-    return { message: "Usuário cadastrado com sucesso!" };
+    const token = jwt.sign({ id: user.id }, JWT_SECRET, { expiresIn: "8h" });
+
+    return {
+      message: "Usuário cadastrado com sucesso!",
+      token,
+      user: {
+        id: user.id,
+        nome: user.nome,
+        email: user.email,
+      },
+    };
   }
 
   async login(email: string, senha: string) {
