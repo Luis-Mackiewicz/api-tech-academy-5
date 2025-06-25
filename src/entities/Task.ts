@@ -1,19 +1,6 @@
-import {
-  Entity,
-  PrimaryGeneratedColumn,
-  Column,
-  ManyToOne,
-  CreateDateColumn,
-  UpdateDateColumn,
-} from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from "typeorm";
 import { Project } from "./Project";
 import { User } from "./User";
-
-export enum TaskStatus {
-  TODO = "TODO",
-  IN_PROGRESS = "IN_PROGRESS",
-  DONE = "DONE",
-}
 
 @Entity()
 export class Task {
@@ -21,30 +8,17 @@ export class Task {
   id: number;
 
   @Column()
-  title: string;
+  titulo: string;
 
-  @Column({ nullable: true })
-  description: string;
+  @Column()
+  descricao: string;
 
-  @Column({
-    type: "enum",
-    enum: TaskStatus,
-    default: TaskStatus.TODO,
-  })
-  status: TaskStatus;
+  @Column({ default: "todo" })
+  status: "todo" | "doing" | "done";
 
-  @ManyToOne(() => Project, (project) => project.tasks, { onDelete: "CASCADE" })
+  @ManyToOne(() => Project, (project) => project.tasks)
   project: Project;
 
-  @ManyToOne(() => User, (user) => user.tasks, {
-    nullable: true,
-    onDelete: "SET NULL",
-  })
-  assignedTo: User;
-
-  @CreateDateColumn()
-  createdAt: Date;
-
-  @UpdateDateColumn()
-  updatedAt: Date;
+  @ManyToOne(() => User, { nullable: true })
+  responsavel: User | null;
 }
