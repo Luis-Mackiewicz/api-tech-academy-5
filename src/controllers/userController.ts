@@ -6,11 +6,9 @@ const service = new UserService();
 export class UserController {
   static async getProfile(req: Request, res: Response) {
     try {
-      // O id do usuário vem do middleware de autenticação (req.userId)
       // @ts-ignore
       const id = req.userId;
       const user = await service.findById(id);
-      // Não retorna a senha!
       return res.json({
         id: user.id,
         nome: user.nome,
