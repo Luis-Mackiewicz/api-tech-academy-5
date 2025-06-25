@@ -4,12 +4,10 @@ import {
   Column,
   ManyToOne,
   OneToMany,
-  CreateDateColumn,
-  UpdateDateColumn,
 } from "typeorm";
 import { User } from "./User";
-import { Membership } from "./Membership";
 import { Task } from "./Task";
+import { Member } from "./Member";
 
 @Entity()
 export class Project {
@@ -17,23 +15,20 @@ export class Project {
   id: number;
 
   @Column()
-  name: string;
+  nome: string;
+
+  @Column()
+  descricao: string;
 
   @Column({ nullable: true })
-  description: string;
+  imagem: string | null;
 
-  @CreateDateColumn()
-  createdAt: Date;
-
-  @UpdateDateColumn()
-  updatedAt: Date;
-
-  @ManyToOne(() => User, (user) => user.projects, { eager: true })
-  creator: User;
-
-  @OneToMany(() => Membership, (membership) => membership.project)
-  memberships: Membership[];
+  @ManyToOne(() => User, (user) => user.projetos)
+  owner: User;
 
   @OneToMany(() => Task, (task) => task.project)
   tasks: Task[];
+
+  @OneToMany(() => Member, (member) => member.project)
+  members: Member[];
 }
