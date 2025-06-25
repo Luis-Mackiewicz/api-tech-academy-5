@@ -20,7 +20,7 @@ export class Project {
   @Column()
   descricao: string;
 
-  @Column({ nullable: true })
+  @Column({ nullable: true, type: "varchar" })
   imagem: string | null;
 
   @ManyToOne(() => User, (user) => user.projetos)
