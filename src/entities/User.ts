@@ -1,44 +1,26 @@
-import {
-  Entity,
-  PrimaryGeneratedColumn,
-  Column,
-  OneToMany,
-  CreateDateColumn,
-  UpdateDateColumn,
-} from "typeorm";
-import { Membership } from "./Membership";
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from "typeorm";
 import { Project } from "./Project";
-import { Task } from "./Task";
-
+import { Member } from "./Member";
 @Entity()
 export class User {
   @PrimaryGeneratedColumn()
   id: number;
 
   @Column()
-  name: string;
+  nome: string;
 
   @Column({ unique: true })
   email: string;
 
   @Column()
-  password: string;
+  senha: string;
 
   @Column({ unique: true })
   cpf: string;
 
-  @CreateDateColumn()
-  createdAt: Date;
+  @OneToMany(() => Project, (project) => project.owner)
+  projetos: Project[];
 
-  @UpdateDateColumn()
-  updatedAt: Date;
-
-  @OneToMany(() => Membership, (membership) => membership.user)
-  memberships: Membership[];
-
-  @OneToMany(() => Project, (project) => project.creator)
-  projects: Project[];
-
-  @OneToMany(() => Task, (task) => task.assignedTo)
-  tasks: Task[];
+  @OneToMany(() => Member, (member) => member.user)
+  memberships: Member[];
 }
