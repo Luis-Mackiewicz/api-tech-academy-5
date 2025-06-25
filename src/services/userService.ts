@@ -15,7 +15,6 @@ export class UserService {
     const user = await this.userRepo.findOneBy({ id });
     if (!user) throw new Error("Usuário não encontrado.");
 
-    // Não permite alterar o e-mail!
     user.nome = nome;
     user.cpf = cpf;
     if (senha) {
